@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Jaana</title>
+    <title>Khana Khaya?</title>
     <style>
         body {
             display: flex;
@@ -12,54 +12,57 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #fff0f5;
-            font-family: 'Arial', sans-serif;
+            /* Burger bun texture/color */
+            background-color: #d99036; 
+            background-image: radial-gradient(#e3a65a 15%, transparent 16%),
+                              radial-gradient(#e3a65a 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            font-family: 'Arial Black', sans-serif;
             overflow: hidden;
             text-align: center;
         }
 
         h1 {
-            color: red;
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        #sub-message {
-            color: #ff4d4d;
-            font-size: 2rem;
+            color: #5d3a1a;
+            font-size: 3.5rem;
             font-weight: bold;
-            margin-bottom: 40px;
-            height: 40px; /* Space reserved for the message */
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #fff;
+            margin-bottom: 50px;
+            padding: 0 20px;
         }
 
         .buttons {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             justify-content: center;
+            align-items: center;
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 10px;
-            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50px;
+            border: 4px solid #5d3a1a;
             cursor: pointer;
             z-index: 10;
         }
 
-        #yesBtn {
-            background-color: #ff4d4d;
-            color: white;
+        #khatiBtn {
+            background-color: #ffcc00; /* Mustard yellow */
+            color: #5d3a1a;
         }
 
-        #noBtn {
-            background-color: #808080;
-            color: white;
+        #khaliaBtn {
+            background-color: #ffffff;
+            color: #5d3a1a;
             position: absolute; 
             transition: 0.1s;
         }
 
-        #flower-container {
+        #food-shower {
             position: fixed;
             top: 0;
             left: 0;
@@ -69,71 +72,71 @@
             display: none;
         }
 
-        .flower {
+        .food-item {
             position: absolute;
-            font-size: 2rem;
+            font-size: 3rem;
             animation: fall 3s linear forwards;
         }
 
         @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); }
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>My dearest Jaana</h1>
-        <div id="sub-message"></div> <div class="buttons">
-            <button id="yesBtn">Will you be mine?</button>
-            <button id="noBtn">Not now</button>
-        </div>
+    <h1>KHANA KHAYA NAHI KHAYA</h1>
+
+    <div class="buttons">
+        <button id="khatiBtn">Khati hun</button>
+        <button id="khaliaBtn">Khalia</button>
     </div>
 
-    <div id="flower-container"></div>
+    <div id="food-shower"></div>
 
     <script>
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const flowerContainer = document.getElementById('flower-container');
-        const subMessage = document.getElementById('sub-message');
+        const khaliaBtn = document.getElementById('khaliaBtn');
+        const khatiBtn = document.getElementById('khatiBtn');
+        const foodShower = document.getElementById('food-shower');
 
-        // The "Fleeing" Logic
-        const moveButton = () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+        // Logic for the button to run away
+        const escape = () => {
+            const x = Math.random() * (window.innerWidth - khaliaBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - khaliaBtn.offsetHeight);
+            khaliaBtn.style.left = `${x}px`;
+            khaliaBtn.style.top = `${y}px`;
         };
 
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevents clicking on mobile
-            moveButton();
+        khaliaBtn.addEventListener('mouseover', escape);
+        khaliaBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            escape();
         });
 
-        // The "Yes" Logic
-        yesBtn.addEventListener('click', () => {
-            flowerContainer.style.display = 'block';
-            subMessage.innerHTML = "I love you koko ❤️"; // The surprise text
+        // Logic for the Food Shower
+        khatiBtn.addEventListener('click', () => {
+            foodShower.style.display = 'block';
+            khaliaBtn.style.display = 'none'; // Hide the other button
+            khatiBtn.innerHTML = "Chalo khao phir! 🍔";
             
-            for (let i = 0; i < 60; i++) {
-                setTimeout(createFlower, i * 50);
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createFood, i * 100);
             }
-            
-            yesBtn.style.display = "none";
-            noBtn.style.display = "none";
         });
 
-        function createFlower() {
-            const flower = document.createElement('div');
-            const flowers = ['🌸', '🌹', '🌷', '🌺', '🌼', '❤️'];
-            flower.classList.add('flower');
-            flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
-            flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.top = '-50px';
-            flower.style.animationDuration = Math.random() * 2 + 2 + 's';
-            flowerContainer.appendChild(flower);
+        function createFood() {
+            const item = document.createElement('div');
+            const menu = ['🍔', '🍕', '🌭', '🍟', '🌮', '🍩'];
+            item.classList.add('food-item');
+            item.innerHTML = menu[Math.floor(Math.random() * menu.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.top = '-50px';
+            item.style.animationDuration = Math.random() * 2 + 2 + 's';
+            foodShower.appendChild(item);
+            
+            // Remove from DOM after falling to keep it smooth
+            setTimeout(() => { item.remove(); }, 4000);
         }
     </script>
 </body>
