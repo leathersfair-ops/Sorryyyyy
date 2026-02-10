@@ -15,16 +15,21 @@
             background-color: #fff0f5;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
+            text-align: center;
         }
 
         h1 {
             color: red;
             font-size: 3rem;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
         }
 
-        .container {
-            text-align: center;
+        #sub-message {
+            color: #ff4d4d;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            height: 40px; /* Space reserved for the message */
         }
 
         .buttons {
@@ -39,7 +44,7 @@
             border-radius: 10px;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s;
+            z-index: 10;
         }
 
         #yesBtn {
@@ -50,7 +55,8 @@
         #noBtn {
             background-color: #808080;
             color: white;
-            position: absolute; /* Needed for movement */
+            position: absolute; 
+            transition: 0.1s;
         }
 
         #flower-container {
@@ -78,7 +84,7 @@
 
     <div class="container">
         <h1>My dearest Jaana</h1>
-        <div class="buttons">
+        <div id="sub-message"></div> <div class="buttons">
             <button id="yesBtn">Will you be mine?</button>
             <button id="noBtn">Not now</button>
         </div>
@@ -90,31 +96,43 @@
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const flowerContainer = document.getElementById('flower-container');
+        const subMessage = document.getElementById('sub-message');
 
         // The "Fleeing" Logic
-        noBtn.addEventListener('mouseover', () => {
+        const moveButton = () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents clicking on mobile
+            moveButton();
         });
 
-        // The "Flower" Logic
+        // The "Yes" Logic
         yesBtn.addEventListener('click', () => {
             flowerContainer.style.display = 'block';
-            for (let i = 0; i < 50; i++) {
-                createFlower();
+            subMessage.innerHTML = "I love you koko ❤️"; // The surprise text
+            
+            for (let i = 0; i < 60; i++) {
+                setTimeout(createFlower, i * 50);
             }
-            yesBtn.innerHTML = "I knew it! ❤️";
+            
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
         });
 
         function createFlower() {
             const flower = document.createElement('div');
-            const flowers = ['🌸', '🌹', '🌷', '🌺', '🌼'];
+            const flowers = ['🌸', '🌹', '🌷', '🌺', '🌼', '❤️'];
             flower.classList.add('flower');
             flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
             flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.animationDuration = Math.random() * 2 + 3 + 's';
+            flower.style.top = '-50px';
+            flower.style.animationDuration = Math.random() * 2 + 2 + 's';
             flowerContainer.appendChild(flower);
         }
     </script>
