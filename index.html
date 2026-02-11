@@ -118,7 +118,7 @@
         khatiBtn.addEventListener('click', () => {
             foodShower.style.display = 'block';
             khaliaBtn.style.display = 'none'; // Hide the other button
-            khatiBtn.innerHTML = "Chalo khao phir! 🍔";
+            khatiBtn.innerHTML = "Chalien khaiyen phir! 🫡";
             
             for (let i = 0; i < 100; i++) {
                 setTimeout(createFood, i * 100);
@@ -127,7 +127,7 @@
 
         function createFood() {
             const item = document.createElement('div');
-            const menu = ['🍔', '🍕', '🌭', '🍟', '🌮❤️❤️❤️❤️', '🍩'];
+            const menu = ['🍔', '🍕', '🌭', '🍟', '🌮❤️', '🍩'];
             item.classList.add('food-item');
             item.innerHTML = menu[Math.floor(Math.random() * menu.length)];
             item.style.left = Math.random() * 100 + 'vw';
@@ -141,4 +141,5 @@
     </script>
 </body>
 </html>
+
 
