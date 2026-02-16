@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eid Moon</title>
+    <title>Ramadan Kareem</title>
     <style>
         body {
             display: flex;
@@ -18,17 +18,17 @@
             text-align: center;
         }
 
-        h1 {
+        #main-title {
             color: #5d4037; /* Light Brown Color */
             font-size: 2.5rem;
             font-weight: bold;
             padding: 20px;
-            margin-bottom: 40px;
+            transition: opacity 0.5s ease;
         }
 
         .btn-container {
             position: relative;
-            width: 300px;
+            width: 100%;
             height: 100px;
             display: flex;
             justify-content: center;
@@ -36,20 +36,18 @@
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 1.2rem;
             font-weight: bold;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            transition: 0.1s;
         }
 
         /* The Hidden Yes Button */
         #yesBtn {
             background-color: #8d6e63;
             color: #f5e6be;
-            position: absolute;
             z-index: 1;
         }
 
@@ -59,7 +57,7 @@
             color: #a1887f; /* Brown Text */
             position: absolute;
             z-index: 2;
-            white-space: nowrap;
+            transition: 0.1s ease;
         }
 
         #moon-shower {
@@ -78,20 +76,35 @@
             animation: fall 4s linear forwards;
         }
 
+        #final-message {
+            display: none;
+            color: #5d4037;
+            font-size: 4rem;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in;
+        }
+
         @keyframes fall {
             0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0.5; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <h1>Will you be the moon of my Eid?</h1>
+    <h1 id="main-title">Will you be the moon of my Eid?</h1>
 
-    <div class="btn-container">
+    <div id="controls" class="btn-container">
         <button id="yesBtn">Yes</button>
         <button id="noBtn">no please</button>
     </div>
+
+    <h1 id="final-message">Ramadan Mubarak</h1>
 
     <div id="moon-shower"></div>
 
@@ -99,39 +112,43 @@
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const moonShower = document.getElementById('moon-shower');
+        const mainTitle = document.getElementById('main-title');
+        const controls = document.getElementById('controls');
+        const finalMessage = document.getElementById('final-message');
 
         // Function to move the "No" button
         const moveNo = () => {
-            const padding = 50;
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
-            
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             noBtn.style.position = 'fixed';
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         };
 
-        // Triggers for moving
         noBtn.addEventListener('mouseover', moveNo);
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             moveNo();
         });
 
-        // Trigger for the Moon shower
+        // Trigger for the Moon shower and message change
         yesBtn.addEventListener('click', () => {
-            moonShower.style.display = 'block';
-            noBtn.style.display = 'none'; // Hide No forever
-            yesBtn.innerHTML = "Eid Mubarak! 🌙";
+            // Hide everything else
+            mainTitle.style.display = 'none';
+            controls.style.display = 'none';
             
-            for (let i = 0; i < 80; i++) {
-                setTimeout(createMoon, i * 100);
+            // Show the Moon Shower and Final Text
+            moonShower.style.display = 'block';
+            finalMessage.style.display = 'block';
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createMoon, i * 80);
             }
         });
 
         function createMoon() {
             const moon = document.createElement('div');
-            const icons = ['🌙', '⭐', '🌙', '✨']; // Mixture of moons and stars
+            const icons = ['🌙', '⭐', '✨']; 
             moon.classList.add('moon');
             moon.innerHTML = icons[Math.floor(Math.random() * icons.length)];
             moon.style.left = Math.random() * 100 + 'vw';
@@ -139,7 +156,6 @@
             moon.style.animationDuration = Math.random() * 2 + 3 + 's';
             moonShower.appendChild(moon);
             
-            // Clean up to prevent lag
             setTimeout(() => { moon.remove(); }, 5000);
         }
     </script>
