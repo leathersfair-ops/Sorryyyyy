@@ -3,137 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart BODMAS Calculator</title>
+    <title>Raw & Refined | Premium Hair-on Leather</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --primary-brown: #4a3728;
+            --tan: #c5a880;
+            --cream: #fdfaf5;
+            --black: #1a1a1a;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--primary-brown);
+            scroll-behavior: smooth;
+        }
+
+        /* --- Audio Controls --- */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(74, 55, 40, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- Navigation --- */
+        nav {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: absolute;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--primary-brown);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1590739225287-bd31519780c3?q=80&w=2000') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f0f2f5;
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-        }
-
-        .calculator {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            width: 320px;
-        }
-
-        #display {
-            width: 100%;
-            height: 60px;
-            font-size: 1.5rem;
-            text-align: right;
-            margin-bottom: 20px;
-            padding: 10px;
-            box-sizing: border-box;
-            border: none;
-            border-radius: 10px;
-            background: #222;
-            color: #0ff;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        button {
-            padding: 15px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            background-color: #444;
             color: white;
-            transition: 0.2s;
+            text-align: center;
         }
 
-        button:hover { background-color: #555; }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            margin: 0;
+            font-weight: 300;
+            animation: fadeInUp 1.5s ease;
+        }
 
-        .op-btn { background-color: #f39c12; color: white; } /* Basic Math */
-        .spec-btn { background-color: #3498db; color: white; } /* Sq/Cube */
-        .eq-btn { background-color: #27ae60; grid-column: span 2; }
-        .clear-btn { background-color: #e74c3c; grid-column: span 2; }
+        .hero p {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
 
+        /* --- Gallery Section --- */
+        .section-title {
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+
+        .section-title h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 50px 80px;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            height: 450px;
+            background-color: #eee;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--black);
+            color: var(--cream);
+            padding: 50px;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            nav { padding: 20px; }
+            nav ul { display: none; }
+        }
     </style>
 </head>
 <body>
 
-<div class="calculator">
-    <input type="text" id="display" placeholder="0" readonly>
-    <div class="buttons">
-        <button class="spec-btn" onclick="calc('sqrt')">√</button>
-        <button class="spec-btn" onclick="calc('cbrt')">∛</button>
-        <button class="spec-btn" onclick="calc('sq')">x²</button>
-        <button class="spec-btn" onclick="calc('cu')">x³</button>
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-        <button onclick="append('(')">(</button>
-        <button onclick="append(')')">)</button>
-        <button class="op-btn" onclick="append('/')">/</button>
-        <button class="op-btn" onclick="append('*')">×</button>
+    <button id="music-control">PLAY MUSIC ♫</button>
 
-        <button onclick="append('7')">7</button>
-        <button onclick="append('8')">8</button>
-        <button onclick="append('9')">9</button>
-        <button class="op-btn" onclick="append('-')">-</button>
+    <nav>
+        <div class="logo">Leather & Hide</div>
+        <ul>
+            <li><a href="#">Bags</a></li>
+            <li><a href="#">Furniture</a></li>
+            <li><a href="#">Rugs</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
 
-        <button onclick="append('4')">4</button>
-        <button onclick="append('5')">5</button>
-        <button onclick="append('6')">6</button>
-        <button class="op-btn" onclick="append('+')">+</button>
+    <section class="hero">
+        <h1>Natural Elegance</h1>
+        <p>Hand-Selected Hair-on Leather</p>
+    </section>
 
-        <button onclick="append('1')">1</button>
-        <button onclick="append('2')">2</button>
-        <button onclick="append('3')">3</button>
-        <button onclick="append('.')">.</button>
-
-        <button onclick="append('0')">0</button>
-        <button class="clear-btn" onclick="clearDisplay()">AC</button>
-        <button class="eq-btn" onclick="calculate()">=</button>
+    <div class="section-title">
+        <h2>The Collection</h2>
     </div>
-</div>
 
-<script>
-    const display = document.getElementById('display');
+    <section class="gallery">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=800" alt="Leather Tote">
+            <div class="product-info">
+                <h3>Signature Tote</h3>
+                <p>Brindled Cowhide & Full Grain</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1533512930330-4ac257c86793?q=80&w=800" alt="Furniture">
+            <div class="product-info">
+                <h3>Artisan Chair</h3>
+                <p>Natural Hair-on-hide Accent</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1505529848102-7a700830490b?q=80&w=800" alt="Leather Detail">
+            <div class="product-info">
+                <h3>Traveler's Duffel</h3>
+                <p>Black & White Spotted Texture</p>
+            </div>
+        </div>
+    </section>
 
-    function append(value) {
-        display.value += value;
-    }
+    <footer>
+        <p>&copy; 2026 LEATHER & HIDE ARTISANS. ETHICALLY SOURCED.</p>
+    </footer>
 
-    function clearDisplay() {
-        display.value = '';
-    }
+    <script>
+        const music = document.getElementById('bgMusic');
+        const btn = document.getElementById('music-control');
 
-    // Handles BODMAS naturally using JavaScript's engine
-    function calculate() {
-        try {
-            // Evaluates the string following DMAS/BODMAS rules
-            display.value = eval(display.value);
-        } catch (error) {
-            display.value = "Error";
-            setTimeout(clearDisplay, 1500);
-        }
-    }
-
-    // Advanced Scientific Functions
-    function calc(type) {
-        let val = parseFloat(display.value);
-        if (isNaN(val)) return;
-
-        switch(type) {
-            case 'sqrt': display.value = Math.sqrt(val); break;
-            case 'cbrt': display.value = Math.cbrt(val); break;
-            case 'sq': display.value = Math.pow(val, 2); break;
-            case 'cu': display.value = Math.pow(val, 3); break;
-        }
-    }
-</script>
-
+        btn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "PAUSE MUSIC ||";
+            } else {
+                music.pause();
+                btn.innerHTML = "PLAY MUSIC ♫";
+            }
+        });
+    </script>
 </body>
 </html>
